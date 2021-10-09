@@ -51,14 +51,14 @@ const Form = ({ currentId, setCurrentId }) => {
         return (
           <Paper className={classes.paper}>
             <Typography variant="h6" align="center">
-              Please Sign In to create start posting.
+              Please Sign In to start posting.
             </Typography>
           </Paper>
         );
       }
       
     return (
-        <Paper className={classes.paper}>
+        <Paper className={classes.paper} elevation={6}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
                 <Typography variant='h6'>{currentId ? 'Editing' : 'Creating'} a memory</Typography>
                 {/* <TextField name="creator" fullWidth variant='outlined' label='Creator'
