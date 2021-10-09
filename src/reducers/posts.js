@@ -16,7 +16,7 @@ Action types:
             the added post.
 
 */
-import { CREATE, UPDATE, DELETE, LIKE, FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING } from '../constants/actionTypes';
+import { CREATE, UPDATE, DELETE, LIKE, FETCH_ALL, FETCH_BY_SEARCH, START_LOADING, END_LOADING, FETCH_POST } from '../constants/actionTypes';
 
 const actioner = (state = {isLoading: true, posts: []}, action) => {
     switch (action.type) {
@@ -51,6 +51,10 @@ const actioner = (state = {isLoading: true, posts: []}, action) => {
         case FETCH_BY_SEARCH:
             return {
                 ...state, posts: action.payload
+            };
+        case FETCH_POST:
+            return {
+                ...state, post: action.payload
             };
         case CREATE:
             return {

@@ -32,6 +32,7 @@ export default makeStyles({
     top: '20px',
     right: '20px',
     color: 'white',
+    zIndex: '5',
   },
   grid: {
     display: 'flex',
@@ -48,5 +49,9 @@ export default makeStyles({
     padding: '0 16px 8px 16px',
     display: 'flex',
     justifyContent: 'space-between',
+  },
+  cardAction: {
+    display: 'block',
+    textAlign: 'initial',
   },
 });

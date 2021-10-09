@@ -13,9 +13,6 @@ import { useHistory } from 'react-router-dom';
 const Post = ({ setId, post }) => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const posts = useSelector((state) => {
-        return state.posts;
-    });
     const user = JSON.parse(localStorage.getItem('profile'));
 
     const Likes = () => {
@@ -49,13 +46,7 @@ const Post = ({ setId, post }) => {
                 <Typography variant='h6'>{post.name}</Typography>
                 <Typography variant='body2'>{moment(post.createdAt).fromNow()}</Typography>
             </div>
-            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-            <div className={classes.overlay2}>
-                <Button onClick={() => setId(post._id)} style={{ color: 'white' }} size="small">
-                <MoreHorizIcon fontSize="default" />
-                </Button>
-            </div>
-            )}
+            
             <div className={classes.details}>
                 <Typography variant='body2' color="textSecondary">{post.tags.map((tag) => `#${tag} `)}</Typography>
 
@@ -68,13 +59,24 @@ const Post = ({ setId, post }) => {
             </CardContent>
 
             </ButtonBase>
+            {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
+            <div className={classes.overlay2}>
+                <Button onClick={() => setId(post._id)} style={{ color: 'white' }} size="small">
+                <MoreHorizIcon fontSize="default" />
+                </Button>
+            </div>
+            )}
             <CardActions className={classes.cardActions}>
                 <Button size="small" color="primary" disabled={!user?.result} onClick={() => dispatch(likePost(post._id))}>
                     <Likes />
                 </Button>
 
                 {(user?.result?.googleId === post?.creator || user?.result?._id === post?.creator) && (
-                <Button size="small" color="secondary" onClick={() => dispatch(deletePost(post._id))}>
+                <Button size="small" color="secondary" onClick={() => {
+                        dispatch(deletePost(post._id));
+                        history.push('/');
+                    }
+                }>
                     <DeleteIcon fontSize="small" /> Delete
                 </Button>
                 )}
