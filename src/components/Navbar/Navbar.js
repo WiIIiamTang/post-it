@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
+import { AppBar, Typography, Toolbar, Avatar, Button, Menu, MenuItem } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
@@ -14,6 +14,7 @@ const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
   const classes = useStyles();
+  const [postBoard, setPostBoard] = useState('general');
 
   const logout = () => {
     dispatch({ type: actionType.LOGOUT });
@@ -35,13 +36,57 @@ const Navbar = () => {
     setUser(JSON.parse(localStorage.getItem('profile')));
   }, [location]);
 
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = (e) => {
+    setAnchorEl(null);
+    const { value } = e.currentTarget.dataset;
+    //console.log(value);
+    setPostBoard(value);
+  };
+
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <div className={classes.appBar} position="static" color="inherit">
       <div className={classes.brandContainer}>
         <Typography component={Link} to="/" className={classes.heading} variant="h2" align="center">Postit</Typography>
         <img className={classes.image} src={memories} alt="memories" height="60" />
       </div>
+      <div className={classes.postBoard}>
+        {postBoard}
+      </div>
       <Toolbar className={classes.toolbar}>
+        <div className={classes.postBoardMenu}>
+          <Button
+            color="primary"
+            id="postBoardMenuButton"
+            aria-controls="postBoardMenu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            PostBoards
+          </Button>
+          <Menu
+            id="postBoardMenu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'postBoardMenuButton',
+            }}
+          >
+            <MenuItem onClick={handleClose} data-value={"general"}>general</MenuItem>
+            <MenuItem onClick={handleClose} data-value={"animals"}>animals</MenuItem>
+            <MenuItem onClick={handleClose} data-value={"nature"}>nature</MenuItem>
+            <MenuItem onClick={handleClose} data-value={"chat"}>chat</MenuItem>
+            <MenuItem onClick={handleClose} data-value={"meta"}>meta</MenuItem>
+          </Menu>
+        </div>
         {user?.result ? (
           <div className={classes.profile}>
             <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
@@ -52,7 +97,7 @@ const Navbar = () => {
           <Button component={Link} to="/auth" variant="contained" color="primary">Sign In</Button>
         )}
       </Toolbar>
-    </AppBar>
+    </div>
   );
 };
 

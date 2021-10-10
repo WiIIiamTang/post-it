@@ -28,7 +28,7 @@ const Post = () => {
 
   if (!post) return null;
 
-  const openPost = (_id) => history.push(`/posts/${_id}`);
+  const openPost = (_id) => history.push(`/pb/posts/${_id}`);
 
   if (isLoading) {
     return (

@@ -6,6 +6,8 @@ export default makeStyles((theme) => ({
     objectFit: 'cover',
     width: '100%',
     maxHeight: '600px',
+    minWidth: '500px',
+    minHeight: 'auto'
 
   },
   card: {
@@ -38,12 +40,13 @@ export default makeStyles((theme) => ({
   },
   commentsOuterContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'flexStart',
 
   },
   commentsInnerContainer: {
     height: '200px',
-    minWidth: '100px',
+    minWidth: '200px',
+    width: 'maxContent',
     overflowY: 'auto',
     marginRight: '30px'
   }

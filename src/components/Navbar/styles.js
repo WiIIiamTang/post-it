@@ -32,6 +32,13 @@ export default makeStyles((theme) => ({
       width: 'auto',
     },
   },
+  postBoard: {
+    fontSize: '1.5rem',
+  },
+  postBoardMenu: {
+    padding: '1rem',
+    margin: '0 1.5rem',
+  },
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
